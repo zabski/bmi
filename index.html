@@ -1,0 +1,353 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<!--meta name="propeller" content="d254abea09f12908d3c188120f49153f"-->
+<head> 
+    <meta charset="utf-8" /> 
+    <title>Your BMI</title> 
+    <link rel="stylesheet" href="calendar2.css" />
+	<META NAME="DESCRIPTION" CONTENT="Check your body mass index (BMI)">
+	<META NAME="KEYWORDS" CONTENT="body mass index, BMI, correct weight, body mass, obesity, normal weight, healthy weight">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/hello-icon-152.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="white"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="My Calendar">
+    <meta name="msapplication-TileImage" content="images/hello-icon-144.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">	
+
+	<!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script-->
+    <script data-ad-client="ca-pub-4402674240600002" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>    
+	<!--script>
+	  (adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-4402674240600002",
+		enable_page_level_ads: true
+	  });
+	</script-->	
+	<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="calendar2.js"></script>
+    <script src="index.js" defer></script>        
+	
+	<!--meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"-->
+	<div id="myHeader" class="header">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="calendar2.css" />
+
+        <div id="myHeader" class="header">
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-bar-block w3-animate-left" style="display:none;z-index:5" id="mySidebar">
+          <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+          <a href="index.html" class="w3-bar-item w3-button">Body Mass Index (BMI)</a>
+          <a href="bmr.html" class="w3-bar-item w3-button">Basal Metabolic Rate (BMR)</a>
+          <!--a href="ovul.php" class="w3-bar-item w3-button">Ovulation</a>
+          <a href="fert.html" class="w3-bar-item w3-button">Fertility</a>   
+           <a href="preg.html" class="w3-bar-item w3-button">How to get pregnant</a-->   
+          <!--a href="https://play.google.com/store/apps/details?id=com.zmobile.calendarfree" class="w3-bar-item w3-button">Get mobile app</a-->  
+        </div>
+
+        <!-- Page Content -->
+        <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+        <div class="w3-blue">
+          <button class="w3-button w3-blue w3-xlarge" onclick="w3_open()">☰</button>  
+          Your Boby Mass Index
+        </div>
+        </div>        
+	</div>
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+        // sticky header
+        // When the user scrolls the page, execute myFunction 
+        window.onscroll = function() {myFunction()};
+
+        // Get the header
+        var header = document.getElementById("myHeader");
+
+        // Get the offset position of the navbar
+        var sticky = header.offsetTop;
+
+        // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        function myFunction() {
+          if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+          } else {
+            header.classList.remove("sticky");
+          }
+        }
+    </script>
+</head> 
+
+<body onload="checkDate('')"> 
+	<!-- Sidebar --
+<div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+  <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+  <a href="fert.html" class="w3-bar-item w3-button">Fertility</a>
+  <a href="#" class="w3-bar-item w3-button">Link 2</a>
+  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+</div>
+
+<!-- Page Content --
+<div class="w3-teal">
+  <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+  <!--div class="w3-container">
+    
+	My Calendar
+	
+  </div>
+</div-->
+
+<!--calendar-->
+<H3>Check your Body Mass Index (BMI)</H3>
+<form role="form" id="input_data">
+	<p>
+		<label for="cycle">Your height</label><br>
+		<input type="button" id="height_prevv" value="<<" onclick="buttonPress('height', -5);"/>
+		<input type="button" id="height_prev" value="<" onclick="buttonPress('height', -1);"/>
+		<input type="number" id="height" size="3" width="100" min="140" max="220" step="1" value="165" default="165" onchange="updateBMI();" readonly/>cm
+		<input type="button" id="height_next" value=">" onclick="buttonPress('height', 1);"/> 
+		<input type="button" id="height_nextt" value=">>" onclick="buttonPress('height', 5);"/> 
+		<br>
+		<input type="text" id="height_imp" size="4" value='5`5"' default="165" onchange="updateBMI();" readonly/>feet
+	<p>
+		
+		<label for="period">Your weight</label><br>
+		<input type="button" id="weight_prevv" value="<<" onclick="buttonPress('weight', -5);"/>
+		<input type="button" id="weight_prev" value="<" onclick="buttonPress('weight', -0.5);"/>
+		<input type="number" id="weight" size="3" min="30.0" max="200.0" step="0.5" value="65.0" default="65.0" onchange="updateBMI();" placeholder="1.0" readonly/>kg
+		<input type="button" id="weight_next" value=">" onclick="buttonPress('weight', 0.5);"/> 
+		<input type="button" id="weight_nextt" value=">>" onclick="buttonPress('weight', 5);"/> 
+		<br>
+		<input type="number" id="weight_imp" size="3" min="140" max="220" step="1" value="165" default="165" onchange="updateBMI();" readonly/>lbs
+	<p class="luteal">
+		
+		<label for="luteal">Your age</label><br>
+		<input type="button" id="luteal_prev" value="&minus;" onclick="buttonPress('luteal', -1);"/>		
+		<input type="number" id="luteal" min="10" max="100" step="1" value="14" default="30" onchange="updateBMI();"/>
+		<input type="button" id="luteal_next" value="&plus;" onclick="buttonPress('luteal', 1);"/> 
+	<p>
+		<text id="bmi_label">Your BMI is = ?</text>
+        
+</form>    
+    
+<div id="legend">
+		
+		<table class="legend"> 
+			<tbody> 				 
+				<tr><td class="title">&plus;</td><td class="title">Range</td><td class="title">Explanation</td></tr>
+				<tr><td class="picked" translate="no" class="notranslate">&#x0031;`</td><td class="desc">below 16</td><td class="desc">Severe underweight</td></tr> 
+				<tr><td class="period" translate="no" class="notranslate">&#x0032;`</td><td class="desc">16 - 18.5</td><td class="desc">Underweight</td></tr> 
+				<tr><td class="fertile" translate="no" class="notranslate">&#x0033;`</td><td class="desc">18.5 - 25</td><td class="desc">Normal weight</td></tr> 
+				<tr><td class="ovulation" translate="no" class="notranslate">&#x0034;`</td><td class="desc">25 - 30</td><td class="desc">Overweight</td></tr> 
+				<tr><td translate="no" class="notranslate">&#x0035;`</td><td class="desc">30 - 35</td><td class="desc">Moderately obese</td></tr> 
+				<tr><td class="today" translate="no" class="notranslate">&#x0036;`</td><td class="desc">Above 35</td><td class="desc">Severe obese</td></tr> 
+			</tbody> 
+		</table>
+		
+</div>
+
+<!-- my stuff -->
+
+<div id="instruction">
+<h2>Instruction</h2>
+<p>
+    In order to check the phase of your menstrual cycle, please enter the length of your menstrual cycle, and the start date of your last menstruation period. Then look at the calendar. It will indicate your current phase of the cycle, along with the <b>chance</b> of conceiving (or <b>risk</b> of pregnancy) for each day of the month.
+</div>
+<button class="add-button">Add to home screen</button>
+
+<!--p translate="no">Don't translate this!</p>
+<p>This can be translated to any language.</p>
+<p class="notranslate" >What about this?</p-->
+<!-- end lz my stuff -->
+<!--div id="p_1774275"></div><script src="//native.propellerads.com/1?z=1774275&eid=p_1774275"></script-->
+</body>
+<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="calendar.js"></script-->
+<script>
+
+	var cald;
+	var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday","Saturday"];
+	
+	const LbsRatio = 0.45359237;
+	const inchToCm = 2.54;
+	//updateCalendar();
+	
+	
+		function cyclePrev(){
+		document.forms["input_data"]["cycle"].value -= 1;
+		/*
+		var lastVal = document.forms["input_data"]["cycle"].value;
+			var cycle = $("#cycle");
+			var lastText = cycle.text();
+			var val = cycle.value;
+			//var lastVal = parseInt(lastText);
+			var newVal = --lastVal;
+			$(cycle).text = --lastVal;
+			document.forms["input_data"]["cycle"].value = newVal;*/
+		}
+		
+		function buttonPress(fieldId, shift){
+			var num = parseFloat(-shift);
+			var val = parseFloat(document.forms["input_data"][fieldId].value);
+			var min = Number(document.forms["input_data"][fieldId].min);
+			var max = Number(document.forms["input_data"][fieldId].max);
+			
+			if ((shift < 0 && val > min) || (shift > 0 && val < max)){
+				val = val - num;
+				document.forms["input_data"][fieldId].value = val.toFixed(1);
+			}
+				
+			if (fieldId=='weight'){
+				var lbs = val/LbsRatio;				
+				document.getElementById("weight_imp").value = lbs.toFixed(0);
+			}
+			if (fieldId=='height'){
+				var inch = val/inchToCm;
+				var feet = Math.floor(inch/12);
+				var rest = inch%12;
+				document.getElementById("height_imp").value = feet.toFixed(0)+'`'+rest.toFixed(0)+'"';
+			}
+			updateBMI();				
+		}
+    
+        function updateBMI(){
+            var height = document.forms["input_data"]["height"].value;
+            var weight = document.forms["input_data"]["weight"].value;
+            var bmi = weight/((height/100)**2);
+            document.getElementById("bmi_value").value = bmi;
+            document.getElementById("bmi_value").innerHTML = bmi.toFixed(1);
+        }
+		
+		function setCookie(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			var expires = "expires="+ d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+		
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for(var i = 0; i <ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+		
+		function getDate(){
+			var date = getCookie("start4");
+			var days = 7;
+			/*
+			if (date==""){ 
+				date = new Date();//.toDateString();
+				date.setTime(date.getTime() - (days*24*60*60*1000));
+				//date.toDateString()
+				var month = date.getMonth()+1;
+				//date = date.getDate()+"-"+month+"-"+date.getFullYear();			
+				var day = date.getDate();				
+				var year = date.getFullYear();
+				if (day<10) { day = "0"+day;}
+				if (month<10) { month = "0"+month;}
+				date = year+"-"+month+"-"+day;				
+			}			*/
+			return date;
+		}
+		
+		function checkDate(date){
+			if (date=='' || date=='dd.mm.rrrr' || date=='dd/mm/rrrr'){
+				date = getDate();
+			}
+			var datetag = document.getElementById("last_cycle");											
+			datetag.value = date;
+			updateCalendar();
+			return date;
+		}
+		//not my stuff
+
+$(document).ready(function(){
+
+});
+
+</script>
+<script>
+/*
+<function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+}
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+}*/
+// When the user scrolls the page, execute myFunction 
+window.onscroll = function() {myFunction()};
+
+// Get the header
+var header = document.getElementById("myHeader");
+
+// Get the offset position of the navbar
+var sticky = header.offsetTop;
+
+// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>
+
+<!-- Previous version of google ads
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- WebCalendar baner 1 --
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4402674240600002"
+     data-ad-slot="3175552821"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script-->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45019697-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-45019697-13');
+</script>
+        
+<!-- registr service worker -->
+<script>
+  if ('serviceWorker' in navigator) {
+    console.log("Will the service worker register?");
+    //navigator.serviceWorker.register('service-worker.js')
+      navigator.serviceWorker.register('sw.js')
+      .then(function(reg){
+        console.log("Yes, it did.");
+      }).catch(function(err) {
+        console.log("No it didn't. This happened: ", err)
+      });
+  }
+</script>
+
+</html>

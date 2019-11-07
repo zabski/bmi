@@ -1,0 +1,393 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<!--meta name="propeller" content="d254abea09f12908d3c188120f49153f"-->
+<head> 
+    <meta charset="utf-8" /> 
+    <title>Your Basal Metabolic Rate (BMR)</title> 
+    <link rel="stylesheet" href="calendar2.css" />
+	<META NAME="DESCRIPTION" CONTENT="Check your body mass index (BMI)">
+	<META NAME="KEYWORDS" CONTENT="body mass index, BMI, correct weight, body mass, obesity, normal weight, healthy weight">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/hello-icon-152.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="white"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="My Calendar">
+    <meta name="msapplication-TileImage" content="images/hello-icon-144.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">	
+
+	<!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script-->
+    <script data-ad-client="ca-pub-4402674240600002" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>    
+	<!--script>
+	  (adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-4402674240600002",
+		enable_page_level_ads: true
+	  });
+	</script-->	
+	<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="calendar2.js"></script>
+    <script src="index.js" defer></script>        
+	
+	<!--meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"-->
+	<div id="myHeader" class="header">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="calendar2.css" />
+
+        <div id="myHeader" class="header">
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-bar-block w3-animate-left" style="display:none;z-index:5" id="mySidebar">
+          <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+          <a href="index.html" class="w3-bar-item w3-button">Body Mass Index (BMI)</a>
+          <a href="bmr.html" class="w3-bar-item w3-button">Basal Metabolic Rate (BMR)</a>
+          <!--a href="ovul.php" class="w3-bar-item w3-button">Ovulation</a>
+          <a href="fert.html" class="w3-bar-item w3-button">Fertility</a>   
+           <a href="preg.html" class="w3-bar-item w3-button">How to get pregnant</a-->   
+          <!--a href="https://play.google.com/store/apps/details?id=com.zmobile.calendarfree" class="w3-bar-item w3-button">Get mobile app</a-->  
+        </div>
+
+        <!-- Page Content -->
+        <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+        <div class="w3-blue">
+          <button class="w3-button w3-blue w3-xlarge" onclick="w3_open()">☰</button>  
+          Basal Metabolic Rate (BMR)
+        </div>
+        </div>        
+	</div>
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+        // sticky header
+        // When the user scrolls the page, execute myFunction 
+        window.onscroll = function() {myFunction()};
+
+        // Get the header
+        var header = document.getElementById("myHeader");
+
+        // Get the offset position of the navbar
+        var sticky = header.offsetTop;
+
+        // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        function myFunction() {
+          if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+          } else {
+            header.classList.remove("sticky");
+          }
+        }
+    </script>
+</head> 
+
+<body onload="checkDate('')"> 
+	<!-- Sidebar --
+<div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+  <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+  <a href="fert.html" class="w3-bar-item w3-button">Fertility</a>
+  <a href="#" class="w3-bar-item w3-button">Link 2</a>
+  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+</div>
+
+<!-- Page Content --
+<div class="w3-teal">
+  <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+  <!--div class="w3-container">
+    
+	My Calendar
+	
+  </div>
+</div-->
+
+<!--calendar-->
+<H2>Check your Basal Metabolic Rate (BMR)</H2>
+<form role="form" id="input_data">
+	<p>
+		<input type="radio" name="gender" id="male" value="male" onchange="updateBMR();">Male
+		<input type="radio" name="gender" id="female" value="female" onchange="updateBMR();">Female<br>
+	<p>
+		<label for="cycle">Your height</label><br>
+		<input type="button" id="height_prevv" value="<<" onclick="buttonPress('height', -5);"/>
+		<input type="button" id="height_prev" value="<" onclick="buttonPress('height', -1);"/>
+		<input type="number" id="height" size="3" width="100" min="140" max="220" step="1" value="165" default="165" onchange="updateBMR();" readonly/> cm
+		<input type="button" id="height_next" value=">" onclick="buttonPress('height', 1);"/> 
+		<input type="button" id="height_nextt" value=">>" onclick="buttonPress('height', 5);"/> 
+		<br>
+		<input type="text" id="height_imp" size="4" value='5`5"' default="165" onchange="updateBMI();" readonly/> feet
+	<p>
+		
+		<label for="period">Your weight</label><br>
+		<input type="button" id="weight_prevv" value="<<" onclick="buttonPress('weight', -5);"/>
+		<input type="button" id="weight_prev" value="<" onclick="buttonPress('weight', -0.5);"/>
+		<input type="number" id="weight" size="3" min="30.0" max="200.0" step="0.5" value="65.0" default="65.0" onchange="updateBMR();" placeholder="1.0" readonly/>kg
+		<input type="button" id="weight_next" value=">" onclick="buttonPress('weight', 0.5);"/> 
+		<input type="button" id="weight_nextt" value=">>" onclick="buttonPress('weight', 5);"/> 
+		<br>
+		<input type="number" id="weight_imp" size="3" min="140" max="220" step="1" value="165" default="165" onchange="updateBMR();" readonly/> lbs
+	<p class="age">
+		
+		<label for="luteal">Your age</label><br>
+		<input type="button" id="age_prevv" value="<<" onclick="buttonPress('age', -5);"/>		
+		<input type="button" id="age_prev" value="<" onclick="buttonPress('age', -1);"/>		
+		<input type="number" id="age" min="10" max="100" step="1" value="14" default="30" onchange="updateBMI();" readonly/> years
+		<input type="button" id="age_next" value=">" onclick="buttonPress('age', 1);"/> 
+		<input type="button" id="age_nextt" value=">>" onclick="buttonPress('age', 5);"/>	
+    <p>
+        How much do you exercise? :
+        <br>
+        <select name="exercise">
+        	<option value="1.2">Never or rarely</option>
+            <option value="1.375">Little (1–3 days per week)</option>
+            <option value="1.55">Moderate (3–5 days per week)</option>
+            <option value="1.725">Heavy (6–7 days per week)</option>
+            <option value="1.9">Very heavy (twice per day)</option>
+            <!--option value="1.9"></option-->
+        </select>
+
+	<p>
+		<text id="bmr_label">Your BMR is = </text>
+		<text id="bmr_value">?</text>
+        
+</form>    
+    
+<!-- my stuff -->
+
+<div id="instruction">
+<p>
+<h3>WHAT IS BASAL METABOLIC RATE (BMR)?</h3>
+Everybody requires a minimum number of calories to live. This minimum number is called the basal metabolic rate (BMR). Your BMR is the number of calories your organs need to function while you perform no activity whatsoever. You can think of it as the amount of energy you'd burn if you stayed in bed all day.
+<p>
+Since your basal metabolic rate is based largely on involuntary functions like breathing and pumping blood, changes in your day-to-day activity don't do much to raise or lower this number. However, increasing muscle mass does increase BMR, because muscle is metabolically "hungry" and it takes more energy to maintain more muscle. This means that when you have a lot of muscle mass, you'll burn more calories at rest.
+<p>
+<h3>WHY DOES YOUR BMR MATTER?</h3>
+Once you know your BMR, you can use it to calculate the calories you actually burn in a day. From there, you can determine how many calories you need to eat to gain muscle, lose fat, or maintain your weight.
+<p>
+The overall number of calories your body uses on a daily basis is referred to as your "total daily energy expenditure" (TDEE). It's determined based on your BMR as well as your activity level throughout the day. This varies significantly based on your activity level, age, and sex. Generally, men have a higher TDEE than women because they have more muscle mass, and both TDEE and BMR tend to fall regardless of gender as you age.
+<p>
+You can use a TDEE calculator to find this number, or calculate it manually to get a more specific result. Keep in mind, though, that it's impossible to know your exact TDEE, as your activity levels will change day to day, and the only way to get 100 percent accurate BMR numbers is through laboratory testing.
+<p>
+<h3>WHAT'S THE DIFFERENCE BETWEEN BMR AND RMR?</h3>
+The term BMR is sometimes used synonymously with RMR, which stands for "resting metabolic rate." The difference is that while BMR only measures basic processes of breathing, blood circulation, and temperature regulation in a completely resting state, RMR also includes energy expended by digestion and non-exercise daily movements, like getting dressed and lifting your fork to your mouth.
+<p>
+Since the calories you burn digesting food and doing things like brushing your teeth tend to stay around the same range on most days, either number can be used when you're just trying to get a rough estimate of how many calories you burn not including your workouts. Unless you're being tested in a lab environment, both of these numbers will only be estimates, but they can still give you targets to shoot for when you structure your meal plan and workouts.
+<p>
+BMR and RMR numbers are typically close enough to be interchangeable, but if you're calculating your needs in order to gain or lose weight, pay attention to which number an equation calls for. If it's based on BMR, you can use the calculator above to get an estimate. If the equation uses RMR, use this RMR calculator, which will give you a higher number.
+<p>
+<h3>HOW TO USE YOUR BMR TO LOSE FAT OR GAIN MUSCLE</h3>
+Once you use your BMR to determine your TDEE, you can make sure that the nutrition plan you follow is appropriate for your level of energy expenditure and that it isn't giving you too many or too few calories. Being armed with this knowledge, rather than guesstimating or blindly following a plan without scaling it to your individual needs, can make or break your muscle gains or fat loss.
+</div>
+<button class="add-button">Add to home screen</button>
+
+<!--p translate="no">Don't translate this!</p>
+<p>This can be translated to any language.</p>
+<p class="notranslate" >What about this?</p-->
+<!-- end lz my stuff -->
+<!--div id="p_1774275"></div><script src="//native.propellerads.com/1?z=1774275&eid=p_1774275"></script-->
+</body>
+<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="calendar.js"></script-->
+<script>
+
+	var cald;
+	var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday","Saturday"];
+	
+	const LbsRatio = 0.45359237;
+	const inchToCm = 2.54;
+	//updateCalendar();
+	
+	
+		function cyclePrev(){
+		document.forms["input_data"]["cycle"].value -= 1;
+		/*
+		var lastVal = document.forms["input_data"]["cycle"].value;
+			var cycle = $("#cycle");
+			var lastText = cycle.text();
+			var val = cycle.value;
+			//var lastVal = parseInt(lastText);
+			var newVal = --lastVal;
+			$(cycle).text = --lastVal;
+			document.forms["input_data"]["cycle"].value = newVal;*/
+		}
+		
+		function buttonPress(fieldId, shift){
+			var num = parseFloat(-shift);
+			var val = parseFloat(document.forms["input_data"][fieldId].value);
+			var min = Number(document.forms["input_data"][fieldId].min);
+			var max = Number(document.forms["input_data"][fieldId].max);
+
+			
+			if ((shift < 0 && val > min) || (shift > 0 && val < max)){
+				val = val - num;
+				document.forms["input_data"][fieldId].value = val.toFixed(1);
+			}
+				
+			if (fieldId=='weight'){
+				var lbs = val/LbsRatio;				
+				document.getElementById("weight_imp").value = lbs.toFixed(0);
+			}
+			if (fieldId=='height'){
+				var inch = val/inchToCm;
+				var feet = Math.floor(inch/12);
+				var rest = inch%12;
+				document.getElementById("height_imp").value = feet.toFixed(0)+'`'+rest.toFixed(0)+'"';
+			}
+			updateBMR();				
+		}
+    
+        function updateBMI(){
+            var height = document.forms["input_data"]["height"].value;
+            var weight = document.forms["input_data"]["weight"].value;
+            var bmi = weight/((height/100)**2);
+            document.getElementById("bmi_value").value = bmi;
+            document.getElementById("bmi_value").innerHTML = bmi.toFixed(1);
+        }
+
+        function updateBMR(){
+            var height = document.forms["input_data"]["height"].value;
+            var weight = document.forms["input_data"]["weight"].value;
+            var age = document.forms["input_data"]["age"].value;
+            var bmi = weight/((height/100)**2);
+            //document.getElementById("bmi_value").value = bmi;
+            //document.getElementById("bmi_value").innerHTML = bmi.toFixed(1);
+            var bmr = 0;
+            var gender = document.forms["input_data"]['male'].value;
+            var isMale = document.forms["input_data"]['male'].checked;
+			if (isMale){
+				bmr = 88.362 + (13.397*weight) + (4.799*height) - (5.677 * age);
+			}else{
+				bmr = 447.593 + (9.247*weight) + (3.098*height) - (4.330 * age);
+			}
+			document.getElementById("bmr_value").innerHTML = bmr.toFixed(1) + " kcal";
+        }
+		
+		function setCookie(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			var expires = "expires="+ d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+		
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for(var i = 0; i <ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+		
+		function getDate(){
+			var date = getCookie("start4");
+			var days = 7;
+			/*
+			if (date==""){ 
+				date = new Date();//.toDateString();
+				date.setTime(date.getTime() - (days*24*60*60*1000));
+				//date.toDateString()
+				var month = date.getMonth()+1;
+				//date = date.getDate()+"-"+month+"-"+date.getFullYear();			
+				var day = date.getDate();				
+				var year = date.getFullYear();
+				if (day<10) { day = "0"+day;}
+				if (month<10) { month = "0"+month;}
+				date = year+"-"+month+"-"+day;				
+			}			*/
+			return date;
+		}
+		
+		function checkDate(date){
+			if (date=='' || date=='dd.mm.rrrr' || date=='dd/mm/rrrr'){
+				date = getDate();
+			}
+			var datetag = document.getElementById("last_cycle");											
+			datetag.value = date;
+			updateCalendar();
+			return date;
+		}
+		//not my stuff
+
+$(document).ready(function(){
+
+});
+
+</script>
+<script>
+/*
+<function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+}
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+}*/
+// When the user scrolls the page, execute myFunction 
+window.onscroll = function() {myFunction()};
+
+// Get the header
+var header = document.getElementById("myHeader");
+
+// Get the offset position of the navbar
+var sticky = header.offsetTop;
+
+// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>
+
+<!-- Previous version of google ads
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- WebCalendar baner 1 --
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4402674240600002"
+     data-ad-slot="3175552821"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script-->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45019697-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-45019697-13');
+</script>
+        
+<!-- registr service worker -->
+<script>
+  if ('serviceWorker' in navigator) {
+    console.log("Will the service worker register?");
+    //navigator.serviceWorker.register('service-worker.js')
+      navigator.serviceWorker.register('sw.js')
+      .then(function(reg){
+        console.log("Yes, it did.");
+      }).catch(function(err) {
+        console.log("No it didn't. This happened: ", err)
+      });
+  }
+</script>
+
+</html>
